@@ -1,0 +1,20 @@
+/*
+* @Author: 陆飞
+* @Date:   2017-11-08 15:58:42
+*/
+.swipe{height: 3.8rem;}
+.search{padding: 0.3rem; background: #f7f7f7;}
+.search .search-g{height: 0.6rem; position: relative; border: 2px solid #dadecd; border-radius: 0.4rem; background: #fff; overflow: hidden;}
+.search input{width: 100%; height: 0.3rem; line-height: 0.3rem; margin-top: 0.15rem; text-indent: 0.16rem; vertical-align: top;}
+.search a.mintui-search{position: absolute; top: 0.12rem; right: 0.2rem; background: transparent;}
+
+.list{padding: 0.2rem 0.1rem; margin-bottom: 0.4rem; background: white;}
+.list p.list-title{padding: 0.05rem 0.1rem;}
+p.list-title label{display: inline-block; color: #FA729A; padding-left: 0.06rem; border-left: 5px solid #FA729A; font-weight: bold;}
+
+list ul.list-item{padding: 0 0.1rem;}
+.list-item li{float: left; padding: 0.1rem;}
+.list-item li.seventy-five{width: 75%;}
+.list-item li.thirty{width: 33.33%;}
+.list-item li a{display: block; height: 2.9rem;}
+.list-item li img{height: 100%;}
