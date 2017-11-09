@@ -43,7 +43,7 @@
     methods: {
       //确认登录
       submitLogin () {
-        alert(1);
+        this.$Toast({message: '请输入账号或密码', duration: 1800});
       }
     },
     mounted () {
