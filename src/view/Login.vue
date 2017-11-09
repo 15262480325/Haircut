@@ -18,7 +18,7 @@
 
     <!--提交按钮-->
     <div class="p-l-md p-r-md m-t-lg">
-      <mt-button size="large" type="danger">登录</mt-button>
+      <mt-button size="large" type="danger" @click.native="submitLogin">登录</mt-button>
     </div>
 
     <p class="font24 txtC m-t-md"><router-link class="pink" to="">没有账号,马上注册</router-link></p>
@@ -41,9 +41,15 @@
       }
     },
     methods: {
-
+      //确认登录
+      submitLogin () {
+        alert(1);
+      }
     },
-    created () {
+    mounted () {
+      document.getElementsByTagName('html')[0].style.height = 100 + '%';
+      document.body.style.height = 100 + '%';
+      document.getElementById('app').style.height = 100 + '%'
     }
   }
 </script>
