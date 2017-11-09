@@ -89,7 +89,7 @@
     methods: {
       //头部右侧点击触发事件 判断是否登录
       isLogin () {
-        alert(1);
+        window.location.href = '/#/Login'
       }
     },
     created () {}
