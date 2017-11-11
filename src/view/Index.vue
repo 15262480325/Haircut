@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="剪头去" icon="fa fa-user-o" meunTitle="你好,陆飞" :clickEvent="isLogin"></HeaderComponent>
+    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="剪头去" icon="fa fa-user-o" meunTitle="你好" :clickEvent="isLogin"></HeaderComponent>
 
     <!--轮播图-->
     <div class="swipe">
@@ -24,10 +24,10 @@
 
       <!--活动图片-->
       <ul class="list-item clearfix">
-        <li class="seventy-five"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="quarter"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="quarter"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="seventy-five"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="seventy"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="seventy"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
       </ul>
     </div>
 
@@ -37,12 +37,12 @@
 
       <!--活动图片-->
       <ul class="list-item clearfix">
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="one-third"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
       </ul>
     </div>
 
@@ -52,8 +52,8 @@
 
       <!--活动图片-->
       <ul class="list-item clearfix">
-        <li class="seventy-five"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
-        <li class="quarter"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="seventy"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
+        <li class="thirty"><router-link to=""><img src="http://scimg.jb51.net/allimg/160531/13-16053114324L51.jpg" alt=""></router-link></li>
       </ul>
     </div>
 

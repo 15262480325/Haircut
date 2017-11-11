@@ -8,9 +8,12 @@
 
 .group{line-height: 0.62rem; margin-bottom: 0.3rem; position: relative;}
 .group label{display: inline-block; width: 12%; text-align: center;}
-.group input{width: 86%; height: 0.3rem; line-height: 0.28rem; margin-top: 0.16rem; text-indent: 0.12rem; vertical-align: top;}
+.group input{width: 86%; height: 0.3rem; line-height: 0.3rem; margin-top: 0.14rem; text-indent: 0.12rem; vertical-align: top;}
 .group i{width: 100%; height: 1px; position: absolute; bottom: 0; left: 0; background: #FA729A;}
 .group input:focus + i{background: #52C8FF;}
 
-.mint-button.mint-button--danger.mint-button--large{background-color: #FA729A;}
+.send{position: absolute; right: 0; bottom: 0.1rem; font-size: 0.24rem;}
+.send.is-plain::after{background: transparent;}
+
+.pink-btn.mint-button.mint-button--danger{background-color: #FA729A;}
 a.pink:active{color: #FAA4BF;}

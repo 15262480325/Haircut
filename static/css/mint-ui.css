@@ -94,7 +94,7 @@
     text-align: center
 }
 .mint-button::after {
-    background-color: #000;
+    background-color: rgba(0,0,0,0.4);
     content: " ";
     opacity: 0;
     top: 0;
@@ -1609,6 +1609,7 @@ display: inline-block;
   color: white;
   box-sizing: border-box;
   text-align: center;
+  font-size: 0.24rem;
 }
 .mint-indicator-text {
   display: block;
