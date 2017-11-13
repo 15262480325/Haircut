@@ -93,7 +93,11 @@
           this.$axios.post('/api/api/register',{phone: phone.value, password: password.value, verify: code.value}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
-            setTimeout(() => {window.location.href = '/';},1800)
+            console.log(response.data);
+            if (parseInt(response.data.status) == 1) { //status == 1 注册成功
+              sessionStorage.setItem('loginToken','1');  //默认登录并保存登陆状态
+              setTimeout(() => {window.location.href = '/';},1800)
+            }
           }).catch(error => {this.$Indicator.close()})
         }
       }

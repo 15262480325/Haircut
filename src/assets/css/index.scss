@@ -12,7 +12,8 @@
 .list p.list-title{padding: 0.05rem 0.1rem;}
 p.list-title label{display: inline-block; color: #FA729A; padding-left: 0.06rem; border-left: 5px solid #FA729A; font-weight: bold;}
 
-list ul.list-item{padding: 0 0.1rem;}
+.list .overflow-x .list-item{display: flex;}
+.list.overflow-x .list-item li{flex: 1}
 .list-item li{float: left; padding: 0.1rem;}
 .list-item li.seventy{width: 70%;}
 .list-item li.thirty{width: 30%;}

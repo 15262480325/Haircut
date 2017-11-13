@@ -123,7 +123,11 @@
           this.$axios.post('/api/api/login',{phone: account.value, password: password.value}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
-            setTimeout(() => {window.location.href = '/';},1800)
+
+            if (parseInt(response.data.status) == 1) { //status == 1 成功
+              sessionStorage.setItem('loginToken', response.data.data.phone);  //保存登录用户
+              setTimeout(() => {window.location.href = '/';},1800)
+            }
           }).catch(error => {this.$Indicator.close()})
         }
       },
@@ -145,7 +149,10 @@
           this.$axios.post('/api/api/login',{phone: phone.value, password: code.value, type: '1'}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
-            setTimeout(() => {window.location.href = '/';},1800)
+            if (parseInt(response.data.status) == 2) { //status == 1 成功
+              sessionStorage.setItem('loginToken', response.data.data.phone);  //保存登录用户
+              setTimeout(() => {window.location.href = '/';},1800)
+            }
           }).catch(error => {this.$Indicator.close()})
         }
       }
