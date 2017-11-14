@@ -28,6 +28,8 @@ Vue.component(Swipe.name, Swipe); //mint-ui 公共轮播图组件
 
 Vue.component(SwipeItem.name, SwipeItem) //mint-ui 公共轮播图组件
 
+router.beforeEach((to, from, next) => {window.document.title = to.meta.title; next()}) //通过路由修改每个页面的title
+
 new Vue({
   el: '#app',
   router,
