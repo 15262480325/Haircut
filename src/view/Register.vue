@@ -25,10 +25,10 @@
 
     <!--提交按钮-->
     <div class="p-l-md p-r-md m-t-lg">
-      <mt-button class="pink-btn" size="large" type="danger" @click.native="submitLogin">登录</mt-button>
+      <mt-button class="pink-btn" size="large" type="danger" @click.native="submitLogin">注册</mt-button>
     </div>
 
-    <p class="font24 txtR p-md"><router-link class="pink" to="">已有账号</router-link></p>
+    <p class="font24 txtR p-md"><router-link class="pink" to="/Login">已有账号</router-link></p>
   </div>
 
 </template>

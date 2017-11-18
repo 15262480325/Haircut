@@ -3,6 +3,8 @@
 * @Date:   2017-11-08 15:58:42
 */
 .swipe{height: 3.8rem;}
+.swipe .mint-swipe-item a{display: block;}
+.swipe .mint-swipe-item img{display: block;}
 .search{padding: 0.3rem; background: #f7f7f7;}
 .search .search-g{height: 0.6rem; position: relative; border: 2px solid #dadecd; border-radius: 0.4rem; background: #fff; overflow: hidden;}
 .search input{width: 100%; height: 0.3rem; line-height: 0.3rem; margin-top: 0.15rem; text-indent: 0.16rem; vertical-align: top;}

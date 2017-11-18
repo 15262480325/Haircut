@@ -1,6 +1,6 @@
 <template>
   <!--底部菜单-->
-  <footer class="footer font24">
+  <footer class="footer font24 clearfix">
     <router-link :class="activeClass == 'home' ? 'active' : ''" to="/"><span><i class="fa-home"></i> 首页</span></router-link>
     <router-link :class="activeClass == 'category' ? 'active' : ''" to=""><span><i class="fa-server"></i> 分类</span></router-link>
     <router-link :class="activeClass == 'find' ? 'active' : ''" to=""><span><i class="fa-map-marker"></i> 发现</span></router-link>

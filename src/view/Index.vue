@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="剪头去" icon="fa fa-user-o" :meunTitle="loginToken != '' ? '你好 ' + loginToken : loginToken" :clickEvent="isLogin"></HeaderComponent>
+    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="理发去" icon="fa fa-user-o" :meunTitle="loginToken != '' ? '你好 ' + loginToken : loginToken" :clickEvent="isLogin"></HeaderComponent>
 
     <!--轮播图-->
     <div class="swipe">
