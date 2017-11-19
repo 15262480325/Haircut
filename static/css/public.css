@@ -183,9 +183,9 @@ body{max-width: 640px; margin: 0 auto; background: #f9f9f9; font-family: Microso
 
 /*公共底部菜单*/
 .footer{width: 100%; position: fixed; bottom: 0; left: 0; z-index: 4; background: white; box-shadow: 0 -2px 10px #828282;}
-.footer a{width: 25%; float: left; line-height: 0.8rem; color: #D0D0D0;}
+.footer a{width: 25%; float: left; line-height: 0.8rem; color: #7d7b7b;}
 .footer a:active{background: #F5F5F5;}
 .footer a.active{color: #FA729A;}
 .footer span{display: inline-block; width: 100%; line-height: 0.4rem; text-align: center; vertical-align: middle;}
-.footer i{display: block; width: 100%; font: normal normal normal 0.26rem/normal FontAwesome;}
+.footer i{display: block; width: 100%; font-size: 0.26rem;}
 

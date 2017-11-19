@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './assets/icon/iconfont.css'
 
 import axios from 'axios' //基于 Promise 的，为浏览器和 Node.js 设计的 HTTP 客户端
 import {Header,Button,Swipe,SwipeItem,Toast,Indicator} from 'mint-ui' //mint-ui的部分组件

@@ -5,15 +5,15 @@
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
-      <div class="group"><label class="font32 fa fa-user" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--密码-->
-      <div class="group"><label class="font32 fa fa-unlock-alt" for="password"></label><input type="password" id="password" placeholder="请输入密码"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-201" for="password"></label><input type="password" id="password" placeholder="请输入密码"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 fa fa-barcode" for="code"></label><input type="text" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="text" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -64,7 +64,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/api/send_message',{tel: phone, type: '2'}).then(response => {
+            this.$axios.post('/api/api/send_message',{tel: phone, type: 1}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -95,8 +95,7 @@
             this.$Toast({message: response.data.msg, duration: 1800});
             console.log(response.data);
             if (parseInt(response.data.status) == 1) { //status == 1 注册成功
-              sessionStorage.setItem('loginToken','1');  //默认登录并保存登陆状态
-              setTimeout(() => {window.location.href = '/';},1800)
+              setTimeout(() => {window.location.href = '/#/Login';},1800)
             }
           }).catch(error => {this.$Indicator.close()})
         }

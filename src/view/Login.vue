@@ -9,21 +9,28 @@
     <!--账户登录-->
     <div v-if="loginType == 'account'" class="font24 p-l-md p-r-md">
       <!--账号-->
-      <div class="group"><label class="font32 fa fa-user" for="account"></label><input type="text" id="account" placeholder="请输入账号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji" for="account"></label><input type="text" id="account" placeholder="请输入账号"><i></i></div>
 
       <!--密码-->
-      <div class="group"><label class="font32 fa fa-unlock-alt" for="password"></label><input type="password" id="password" placeholder="请输入密码"><i></i></div>
+      <div class="group">
+        <div class="relative">
+          <label class="font32 iconfont icon-201" for="password"></label><input type="password" id="password" minlength="6" maxlength="18" placeholder="请输入密码"><i></i>
+        </div>
+
+        <!--忘记密码-->
+        <router-link class="forget" to="/ForgotPsd">找回密码</router-link>
+      </div>
     </div>
 
     <!--短信登录-->
     <div v-if="loginType == 'sms'" class="font24 p-l-md p-r-md">
       <!--账号-->
-      <div class="group"><label class="font32 fa fa-user" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 fa fa-barcode" for="code"></label><input type="text" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="text" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -89,7 +96,7 @@
           }, 1000)
 
           //发送验证码
-          this.$axios.post('/api/api/send_message',{tel: phone, type: '0'}).then(response => {
+          this.$axios.post('/api/api/send_message',{tel: phone, type: 0}).then(response => {
             this.$Toast({message: response.data.msg, duration: 1800});
           }).catch(error => {})
         }else {

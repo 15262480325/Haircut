@@ -21,3 +21,7 @@ export const regCarId = (cardId) => { //判断身份证是否合法
 export const regEmail = (email) => { //判断邮件是否合法
   return !/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
 }
+
+export const regPassWord = (password) => { //判断密码格式
+  return !/^[a-z0-9]{6,18}$/.test(password);
+}

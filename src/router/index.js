@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Index from '../view/Index' // 首页
 import Login from '../view/Login' //登录页
 import Register from '../view/Register' // 注册页
+import ForgotPsd from '../view/forgotPsd/ForgotPsd' //找回密码
 
 Vue.use(Router)
 
@@ -25,7 +26,12 @@ export default new Router({
       name: 'Register',
       meta: {title: '注册'},
       component: Register
-    }
+    },{
+      path: '/ForgotPsd',
+      name: 'ForgotPsd',
+      meta: {title: '找回密码'},
+      component: ForgotPsd
+    },
   ]
 })
 
