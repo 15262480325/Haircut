@@ -25,12 +25,12 @@
     <!--短信登录-->
     <div v-if="loginType == 'sms'" class="font24 p-l-md p-r-md">
       <!--账号-->
-      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="tel" maxlength="11" id="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="text" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="tel" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->

@@ -5,7 +5,7 @@
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
-      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="text" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="tel" maxlength="11" id="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--密码-->
       <div class="group"><label class="font32 iconfont icon-201" for="password"></label><input type="password" id="password" placeholder="请输入密码"><i></i></div>
@@ -13,7 +13,7 @@
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="text" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="tel" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -35,7 +35,7 @@
 
 <script>
   import HeaderComponent from '../components/HeaderComponent'
-  import {isValEmpty,regPhone} from  '../assets/js/regex'
+  import {isValEmpty,regPhone,regPassWord} from  '../assets/js/regex'
   export default {
     name: 'Register',
     components: {HeaderComponent},
@@ -81,8 +81,8 @@
         if (regPhone(phone.value)) {
           this.$Toast({message: '请输入正确的手机号', duration: 1800});
           phone.focus();
-        }else if (isValEmpty(password.value)) {
-          this.$Toast({message: '请输入密码', duration: 1800});
+        }else if (regPassWord(password.value)) {
+          this.$Toast({message: '请输入6-18位包含字母数字的密码', duration: 1800});
           password.focus();
         }else if (isValEmpty(code.value)) {
           this.$Toast({message: '请输入验证码', duration: 1800});

@@ -23,5 +23,5 @@ export const regEmail = (email) => { //判断邮件是否合法
 }
 
 export const regPassWord = (password) => { //判断密码格式
-  return !/^[a-z0-9]{6,18}$/.test(password);
+  return !/^(?![0-9]+$)(?![a-z]+$)[0-9a-z]{6,18}$/.test(password);
 }
