@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '../view/Index' // 首页
-import Login from '../view/Login' //登录页
-import Register from '../view/Register' // 注册页
-import ForgotPsd from '../view/forgotPsd/ForgotPsd' //找回密码
-import ResetPass from '../view/forgotPsd/ResetPass.vue' //重置密码
 
 Vue.use(Router)
 
@@ -14,31 +9,37 @@ export default new Router({
       path: '/',
       name: 'Index',
       meta: {title: '首页'},
-      component: Index
+      component: resolve => require(['../view/Index'], resolve)
     },
     {
       path: '/Login',
       name: 'Login',
       meta: {title: '登录'},
-      component: Login
+      component: resolve => require(['../view/Login'], resolve)
     },
     {
       path: '/Register',
       name: 'Register',
       meta: {title: '注册'},
-      component: Register
+      component: resolve => require(['../view/Register'], resolve)
     },
     {
       path: '/ForgotPsd',
       name: 'ForgotPsd',
       meta: {title: '找回密码'},
-      component: ForgotPsd
+      component: resolve => require(['../view/forgotPsd/ForgotPsd'], resolve)
     },
     {
       path: '/ResetPass',
       name: 'ResetPass',
       meta: {title: '重置密码'},
-      component: ResetPass
+      component: resolve => require(['../view/forgotPsd/ResetPass'], resolve)
+    },
+    {
+      path: '/Personal/:id',
+      name: 'Personal',
+      meta: {title: '个人中心'},
+      component: resolve => require(['../view/personal/index'], resolve)
     },
   ]
 })

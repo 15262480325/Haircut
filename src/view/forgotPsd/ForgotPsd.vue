@@ -29,11 +29,12 @@
 </template>
 
 <script>
-  import HeaderComponent from '../../components/HeaderComponent'
   import {isValEmpty,regPhone} from '../../assets/js/regex'
   export default {
     name: 'ForgotPsd',
-    components: {HeaderComponent},
+    components: {
+      HeaderComponent: resolve => {require(['../../components/HeaderComponent.vue'], resolve)}, //公共头部组件
+    },
     data () {
       return {
         showBackBtn: true, //不显示头部回退按钮
@@ -84,11 +85,6 @@
           }).catch(error => {this.$Indicator.close();})
         }
       }
-    },
-    mounted () {
-      document.getElementsByTagName('html')[0].style.height = 100 + '%';
-      document.body.style.height = 100 + '%';
-      document.getElementById('app').style.height = 100 + '%'
     }
   }
 </script>

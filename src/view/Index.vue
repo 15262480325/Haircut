@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="理发去" icon="iconfont icon-wode" :meunTitle="loginToken != '' ? '你好 ' + loginToken : loginToken" :clickEvent="isLogin"></HeaderComponent>
+    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="理发去" icon="iconfont icon-wode" :meunTitle="nickName" :clickEvent="isLogin"></HeaderComponent>
 
     <!--轮播图-->
     <div class="swipe">
@@ -81,22 +81,23 @@
 </template>
 
 <script>
-  import FooterComponent from '../components/FooterComponent'
-  import HeaderComponent from '../components/HeaderComponent'
   export default {
     name: 'Index',
-    components: {FooterComponent,HeaderComponent},
+    components: {
+      HeaderComponent: resolve => {require(['../components/HeaderComponent.vue'], resolve)}, //公共头部组件
+      FooterComponent: resolve => {require(['../components/FooterComponent.vue'], resolve)}, //公共站底组件
+    },
     data () {
       return {
         showBackBtn: false, //不显示头部回退按钮
         shouMeunBtn: true, //显示头部右侧功能按钮
-        loginToken: sessionStorage.getItem('loginToken') || '' //登录用户
+        nickName: sessionStorage.getItem('nickName') ==='' || 'null' ? '' : '你好,' + sessionStorage.getItem('nickName') //登录用户
       }
     },
     methods: {
       //头部右侧点击触发事件 判断是否登录
       isLogin () {
-        let route = this.loginToken == '' ? '/#/Login' : '';
+        let route = this.loginToken === '' || 'null' ? '/#/Login' : '/#/Personal/'+window.sessionStorage.getItem('loginToken')+'';
         window.location.href = route;
       }
     },

@@ -23,11 +23,12 @@
 </template>
 
 <script>
-  import HeaderComponent from '../../components/HeaderComponent'
   import {isValEmpty, regPhone, regPassWord} from  '../../assets/js/regex'
   export default {
     name: 'ResetPass',
-    components: {HeaderComponent},
+    components: {
+      HeaderComponent: resolve => {require(['../../components/HeaderComponent.vue'], resolve)}, //公共头部组件
+    },
     data () {
       return {
         phone: '', //手机号
@@ -57,11 +58,6 @@
           }).catch(error => {this.$Indicator.close()})
         }
       }
-    },
-    mounted () {
-      document.getElementsByTagName('html')[0].style.height = 100 + '%';
-      document.body.style.height = 100 + '%';
-      document.getElementById('app').style.height = 100 + '%'
     }
   }
 </script>

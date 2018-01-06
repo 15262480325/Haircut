@@ -54,11 +54,12 @@
 </template>
 
 <script>
-  import HeaderComponent from '../components/HeaderComponent'
   import {isValEmpty,regPhone} from  '../assets/js/regex'
   export default {
     name: 'Login',
-    components: {HeaderComponent},
+    components: {
+      HeaderComponent: resolve => {require(['../components/HeaderComponent.vue'], resolve)}, //公共头部组件
+    },
     data () {
       return {
         showBackBtn: true, //不显示头部回退按钮
@@ -132,7 +133,8 @@
             this.$Toast({message: response.data.msg, duration: 1800});
 
             if (parseInt(response.data.status) == 1) { //status == 1 成功
-              sessionStorage.setItem('loginToken', response.data.data.phone);  //保存登录用户
+              sessionStorage.setItem('loginToken', response.data.data.user_id);  //保存登录用户
+              sessionStorage.setItem('nickName', response.data.data.nickname);  //保存登录昵称
               setTimeout(() => {window.location.href = '/';},1800)
             }
           }).catch(error => {this.$Indicator.close()})
@@ -163,11 +165,6 @@
           }).catch(error => {this.$Indicator.close()})
         }
       }
-    },
-    mounted () {
-      document.getElementsByTagName('html')[0].style.height = 100 + '%';
-      document.body.style.height = 100 + '%';
-      document.getElementById('app').style.height = 100 + '%'
     }
   }
 </script>
