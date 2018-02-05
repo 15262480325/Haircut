@@ -1,20 +1,20 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="登录"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="登录"></HeaderComponent>
 
     <!--logo-->
     <div class="logo"><img src="../assets/images/portraito.png" alt=""></div>
 
     <!--账户登录-->
-    <div v-if="loginType == 'account'" class="font24 p-l-md p-r-md">
+    <div v-if="loginType === 'account'" class="font24 p-l-md p-r-md">
       <!--账号-->
-      <div class="group"><label class="font32 iconfont icon-shouji" for="account"></label><input type="text" id="account" placeholder="请输入账号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="text" v-model="phone" placeholder="请输入账号"><i></i></div>
 
       <!--密码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-201" for="password"></label><input type="password" id="password" minlength="6" maxlength="18" placeholder="请输入密码"><i></i>
+          <label class="font32 iconfont icon-201"></label><input type="password" v-model="password" minlength="6" maxlength="18" placeholder="请输入密码"><i></i>
         </div>
 
         <!--忘记密码-->
@@ -23,14 +23,14 @@
     </div>
 
     <!--短信登录-->
-    <div v-if="loginType == 'sms'" class="font24 p-l-md p-r-md">
+    <div v-if="loginType === 'sms'" class="font24 p-l-md p-r-md">
       <!--账号-->
-      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="tel" maxlength="11" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="tel" maxlength="11" v-model="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="tel" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma"></label><input type="tel" maxlength="4" v-model="password" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -47,14 +47,16 @@
 
     <p class="font24 txtC m-t-md"><router-link class="pink" to="/Register">没有账号,马上注册</router-link></p>
 
-    <p class="font24 txtC m-t-md"><a class="pink" href="javascript:;" @click="handoverLogin">手机验证登录</a></p>
-
+    <p class="font24 txtC m-t-md">
+      <a v-if="loginType === 'account'" class="pink" href="javascript:;" @click="loginType = 'sms'; phone = ''; password = ''">手机验证登录</a>
+      <a v-if="loginType === 'sms'" class="pink" href="javascript:;" @click="loginType = 'account'; phone = ''; password = ''">账号登录</a>
+    </p>
   </div>
 
 </template>
 
 <script>
-  import {isValEmpty,regPhone} from  '../assets/js/regex'
+  import {regPhone} from  '../assets/js/regex'
   export default {
     name: 'Login',
     components: {
@@ -62,42 +64,28 @@
     },
     data () {
       return {
-        showBackBtn: true, //不显示头部回退按钮
-        shouMeunBtn: false, //显示头部右侧功能按钮
         loginType: 'account', //登录方式 ： 账户/短信
+        phone: '',
+        password: '',
         sendState: false, //发送验证码状态
         countDown: 60 //发送验证码倒计时
       }
     },
     methods: {
-      //切换登录
-      handoverLogin () {
-        if (this.loginType == 'account') {
-          this.loginType = 'sms';
-          event.target.innerText = '手机验证登录'
-        }else {
-          this.loginType = 'account';
-          event.target.innerText = '账号登录'
-        }
-      },
-
       //点击发送验证码
       sendVerificationCode () {
-        const phone = document.getElementById('phone').value;
-        if (!regPhone(phone)) { //是否输入正确的手机号
+        if (!regPhone(this.phone)) { //是否输入正确的手机号
           this.sendState = true;
           let timeDown = setInterval(() => { //定时器发送验证码时间递减
-            if (parseInt(this.countDown) > 0) { //判断时间是否变成0
-              this.countDown -= 1;
-            }else {
+            if (this.countDown -- <= 0) { //判断时间是否变成0
+              clearInterval(timeDown);
               this.sendState = false;
               this.countDown = 60;
-              clearInterval(timeDown);
             }
           }, 1000)
 
           //发送验证码
-          this.$axios.post('/api/api/send_message',{tel: phone, type: 0}).then(response => {
+          this.$axios.post('/api/api/send_message',{tel: this.phone, type: 0}).then(response => {
             this.$Toast({message: response.data.msg, duration: 1800});
           }).catch(error => {})
         }else {
@@ -105,66 +93,49 @@
         }
       },
 
-      //确认登录
-      submitLogin () {
-        if (this.loginType == 'account') { //判断登录方式
-          this.accountLogin();
-        }else {
-          this.smsLogin();
-        }
-       },
+      //登录方法
+      loginRequest (type) {
+        this.$Indicator.open({text: '登录中...', spinnerType: 'fading-circle'});
+        this.$axios.post('/api/api/login',{phone: this.phone, password: this.password, type: type}).then(response => {
+          this.$Indicator.close();
+          this.$Toast({message: response.data.msg, duration: 1800});
+          if (parseInt(response.data.status) === 1) { //status == 1 成功
+            this.$store.commit('saveAccount', response.data.data);
+            setTimeout(() => {window.location.href = '/';},1800)
+          }
+        }).catch(error => {this.$Indicator.close()})
+      },
 
-      //账号登录
+      //验证账号登录
       accountLogin () {
-        const account = document.getElementById('account'); //账号
-        const password = document.getElementById('password'); //密码
-
-        if (isValEmpty(account.value)) {
+        if (this.phone === '') {
           this.$Toast({message: '请输入账号', duration: 1800});
-          account.focus();
-        }else if (isValEmpty(password.value)) {
+        }else if (this.password === '') {
           this.$Toast({message: '请输入密码', duration: 1800});
-          password.focus();
         }else {
-          //提交登录
-          this.$Indicator.open({text: '登录中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/api/login',{phone: account.value, password: password.value}).then(response => {
-            this.$Indicator.close();
-            this.$Toast({message: response.data.msg, duration: 1800});
-
-            if (parseInt(response.data.status) == 1) { //status == 1 成功
-              sessionStorage.setItem('loginToken', response.data.data.user_id);  //保存登录用户
-              sessionStorage.setItem('nickName', response.data.data.nickname);  //保存登录昵称
-              setTimeout(() => {window.location.href = '/';},1800)
-            }
-          }).catch(error => {this.$Indicator.close()})
+          this.loginRequest('');
         }
       },
 
       //短信登录
       smsLogin () {
-        const phone = document.getElementById('phone'); //手机号
-        const code = document.getElementById('code'); //验证码
-
-        if (regPhone(phone.value)) {
+        if (regPhone(this.phone)) {
           this.$Toast({message: '请输入正确的手机号', duration: 1800});
-          phone.focus();
-        }else if (isValEmpty(code.value)) {
+        }else if (this.password === '') {
           this.$Toast({message: '请输入验证码', duration: 1800});
-          code.focus();
         }else {
-          //提交登录
-          this.$Indicator.open({text: '登录中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/api/login',{phone: phone.value, password: code.value, type: '1'}).then(response => {
-            this.$Indicator.close();
-            this.$Toast({message: response.data.msg, duration: 1800});
-            if (parseInt(response.data.status) == 2) { //status == 1 成功
-              sessionStorage.setItem('loginToken', response.data.data.phone);  //保存登录用户
-              setTimeout(() => {window.location.href = '/';},1800)
-            }
-          }).catch(error => {this.$Indicator.close()})
+          this.loginRequest('1');
         }
-      }
+      },
+
+      //确认登录
+      submitLogin () {
+        if (this.loginType === 'account') { //判断登录方式
+          this.accountLogin();
+        }else {
+          this.smsLogin();
+        }
+      },
     }
   }
 </script>

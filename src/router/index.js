@@ -4,6 +4,12 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    let position ;
+    savedPosition ? position = savedPosition : position = { x: 0, y: 0 };
+    return position;
+  },
   routes: [
     {
       path: '/',
@@ -38,7 +44,7 @@ export default new Router({
     {
       path: '/Personal/:id',
       name: 'Personal',
-      meta: {title: '个人中心'},
+      meta: {title: '个人中心', requiresAuth: true},
       component: resolve => require(['../view/personal/index'], resolve)
     },
   ]

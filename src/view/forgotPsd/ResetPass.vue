@@ -1,7 +1,7 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="注册"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="重置密码"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
@@ -52,8 +52,8 @@
           this.$axios.post('/api/api/set_password',{phone: this.phone, password: this.password, confirm_password	: this.confirmPass}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
-            if (parseInt(response.data.status) == 1) {
-              setTimeout(() => {window.location.href = '/#/Login';},1800)
+            if (parseInt(response.data.status) === 1) {
+              setTimeout(() => {window.location.href = '/Login';},1800)
             }
           }).catch(error => {this.$Indicator.close()})
         }

@@ -1,19 +1,19 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="注册"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="注册"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
-      <div class="group"><label class="font32 iconfont icon-shouji" for="phone"></label><input type="tel" maxlength="11" id="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="tel" maxlength="11" v-model="phone" placeholder="请输入手机号"><i></i></div>
 
       <!--密码-->
-      <div class="group"><label class="font32 iconfont icon-201" for="password"></label><input type="password" id="password" placeholder="请输入密码"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-201"></label><input type="password" v-model="password" placeholder="请输入密码"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma" for="code"></label><input type="tel" maxlength="4" id="code" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma"></label><input type="tel" maxlength="4" v-model="verify" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import {isValEmpty,regPhone,regPassWord} from  '../assets/js/regex'
+  import {regPhone,regPassWord} from  '../assets/js/regex'
   export default {
     name: 'Register',
     components: {
@@ -42,8 +42,9 @@
     },
     data () {
       return {
-        showBackBtn: true, //不显示头部回退按钮
-        shouMeunBtn: false, //显示头部右侧功能按钮
+        phone: '',
+        password: '',
+        verify: '',
         sendState: false, //发送验证码状态
         countDown: 60 //发送验证码倒计时
       }
@@ -51,21 +52,18 @@
     methods: {
       //点击发送验证码
       sendVerificationCode () {
-        const phone = document.getElementById('phone').value;
-        if (!regPhone(phone)) { //是否输入正确的手机号
+        if (!regPhone(this.phone)) { //是否输入正确的手机号
             this.sendState = true;
             let timeDown = setInterval(() => { //定时器发送验证码时间递减
-              if (parseInt(this.countDown) > 0) { //判断时间是否变成0
-                this.countDown -= 1;
-              }else {
+              if (this.countDown -- <= 0) { //判断时间是否变成0
+                clearInterval(timeDown);
                 this.sendState = false;
                 this.countDown = 60;
-                clearInterval(timeDown);
               }
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/api/send_message',{tel: phone, type: 1}).then(response => {
+            this.$axios.post('/api/api/send_message',{tel: this.phone, type: 1}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -75,28 +73,21 @@
 
       //确认登录
       submitLogin () {
-        const phone = document.getElementById('phone'); //手机号
-        const password = document.getElementById('password'); //密码
-        const code = document.getElementById('code'); //验证码
-
-        if (regPhone(phone.value)) {
+        if (regPhone(this.phone)) {
           this.$Toast({message: '请输入正确的手机号', duration: 1800});
-          phone.focus();
-        }else if (regPassWord(password.value)) {
+        }else if (regPassWord(this.password)) {
           this.$Toast({message: '请输入6-18位包含字母数字的密码', duration: 1800});
-          password.focus();
-        }else if (isValEmpty(code.value)) {
+        }else if (this.verify === '') {
           this.$Toast({message: '请输入验证码', duration: 1800});
-          code.focus();
         }else {
           //提交注册
           this.$Indicator.open({text: '注册中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/api/register',{phone: phone.value, password: password.value, verify: code.value}).then(response => {
+          this.$axios.post('/api/api/register',{phone: this.phone, password: this.password, verify: this.verify}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             console.log(response.data);
-            if (parseInt(response.data.status) == 1) { //status == 1 注册成功
-              setTimeout(() => {window.location.href = '/#/Login';},1800)
+            if (parseInt(response.data.status) === 1) { //status == 1 注册成功
+              setTimeout(() => {window.location.href = '/Login';},1800)
             }
           }).catch(error => {this.$Indicator.close()})
         }

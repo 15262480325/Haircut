@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="理发去" icon="iconfont icon-wode" :meunTitle="nickName" :clickEvent="isLogin"></HeaderComponent>
+    <HeaderComponent :shouMeunBtn = "true" hearderTitle="理发去" icon="iconfont icon-wode" :meunTitle="nickName !== '' ? '你好,' + nickName : ''" :clickEvent="isLogin"></HeaderComponent>
 
     <!--轮播图-->
     <div class="swipe">
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+  import {mapState} from 'vuex'
   export default {
     name: 'Index',
     components: {
@@ -89,15 +90,16 @@
     },
     data () {
       return {
-        showBackBtn: false, //不显示头部回退按钮
-        shouMeunBtn: true, //显示头部右侧功能按钮
-        nickName: sessionStorage.getItem('nickName') ==='' || 'null' ? '' : '你好,' + sessionStorage.getItem('nickName') //登录用户
+
       }
     },
+    computed: mapState({
+      nickName: state => state.token
+    }),
     methods: {
       //头部右侧点击触发事件 判断是否登录
       isLogin () {
-        let route = this.loginToken === '' || 'null' ? '/#/Login' : '/#/Personal/'+window.sessionStorage.getItem('loginToken')+'';
+        let route = this.$store.state.token === '' ? '/Login' : '/Personal/'+this.$store.state.token+'';
         window.location.href = route;
       }
     },

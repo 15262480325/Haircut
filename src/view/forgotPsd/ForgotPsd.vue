@@ -1,7 +1,7 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = showBackBtn :shouMeunBtn = shouMeunBtn hearderTitle="找回密码"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="找回密码"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
@@ -37,8 +37,6 @@
     },
     data () {
       return {
-        showBackBtn: true, //不显示头部回退按钮
-        shouMeunBtn: false, //显示头部右侧功能按钮
         sendState: false, //发送验证码状态
         countDown: 60, //发送验证码倒计时
         phone: '', //手机号
@@ -52,9 +50,9 @@
             this.sendState = true;
             let timeDown = setInterval(() => { //定时器发送验证码时间递减
               if (this.countDown -- <= 0) { //判断时间是否变成0
+                clearInterval(timeDown);
                 this.sendState = false;
                 this.countDown = 60;
-                clearInterval(timeDown);
               }
             }, 1000)
 
@@ -77,10 +75,9 @@
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
           this.$axios.post('/api/api/check_code',{verify: this.code}).then(response => {
             this.$Indicator.close();
+            this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/#/ResetPass'},1800)
-            }else {
-              this.$Toast({message: response.data.msg, duration: 1800});
+              setTimeout(() => {window.location.href = '/ResetPass'},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }

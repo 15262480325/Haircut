@@ -19,6 +19,7 @@
       },
       'showBackBtn': { //回退按钮
         type: Boolean,
+        default: false
       },
       'shouMeunBtn': { //公共头部右侧功能按钮
         type: Boolean,

@@ -69,83 +69,84 @@ body{max-width: 640px; margin: 0 auto; background: #f9f9f9; font-family: Microso
 .b-r-n{border-right: none!important;}
 .b-t-n{border-bottom: none!important;}
 
-.p-xxs {padding: 5px;}
-.p-xs {padding: 10px;}
-.p-sm {padding: 15px;}
-.p-m {padding: 20px;}
-.p-md {padding: 25px;}
-.p-lg {padding: 30px;}
+.p-xxs {padding: 0.05rem;}
+.p-xs {padding: 0.1rem;}
+.p-sm {padding: 0.15rem;}
+.p-m {padding: 0.20rem;}
+.p-md {padding: 0.25rem;}
+.p-lg {padding: 0.3rem;}
 .p-n {padding: 0!important;}
 
 .p-l-n {padding-left: 0;}
-.p-l-xs {padding-left: 5px;}
-.p-l-sm {padding-left: 10px;}
-.p-l {padding-left: 15px;}
-.p-l-md {padding-left: 20px;}
-.p-l-lg {padding-left: 30px;}
+.p-l-xs {padding-left: 0.05rem;}
+.p-l-sm {padding-left: 0.1rem;}
+.p-l {padding-left: 0.15rem;}
+.p-l-md {padding-left: 0.2rem;}
+.p-l-lg {padding-left: 0.3rem;}
 
 .p-t-n {padding-top: 0;}
-.p-t-xxs {padding-top: 5px;}
-.p-t-xs {padding-top: 10px;}
-.p-t-sm {padding-top: 15px;}
-.p-t {padding-top: 20px;}
-.p-t-md {padding-top: 25px;}
-.p-t-lg {padding-top: 30px;}
+.p-t-xxs {padding-top: 0.05rem;}
+.p-t-xs {padding-top: 0.1rem;}
+.p-t-sm {padding-top: 0.15rem;}
+.p-t {padding-top: 0.2rem;}
+.p-t-md {padding-top: 0.25rem;}
+.p-t-lg {padding-top: 0.3rem;}
 
 .p-r-n {padding-right: 0;}
-.p-r-xxs {padding-right: 5px;}
-.p-r-xs {padding-right: 10px;}
-.p-r-sm {padding-right: 15px;}
-.p-r {padding-right: 20px;}
-.p-r-md {padding-right: 25px;}
-.p-r-lg {padding-right: 30px}
+.p-r-xxs {padding-right: 0.05rem;}
+.p-r-xs {padding-right: 0.1rem;}
+.p-r-sm {padding-right: 0.15rem;}
+.p-r {padding-right: 0.2rem;}
+.p-r-md {padding-right: 0.25rem;}
+.p-r-lg {padding-right: 0.3rem;}
 
 .p-b-n {padding-bottom: 0;}
-.p-b-xxs {padding-bottom: 5px;}
-.p-b-xs {padding-bottom: 10px;}
-.p-b-sm {padding-bottom: 15px;}
-.p-b {padding-bottom: 20px;}
-.p-b-md {padding-bottom: 25px;}
-.p-b-lg {padding-bottom: 30px;}
+.p-b-xxs {padding-bottom: 0.05rem;}
+.p-b-xs {padding-bottom: 0.1rem;}
+.p-b-sm {padding-bottom: 0.15rem;}
+.p-b {padding-bottom: 0.2rem;}
+.p-b-md {padding-bottom: 0.25rem;}
+.p-b-lg {padding-bottom: 0.3rem;}
 
-.m-xxs {margin: 5px;}
-.m-xs {margin: 10px;}
-.m-sm {margin: 15px;}
-.m {margin: 20px;}
-.m-md {margin: 25px;}
-.m-lg {margin: 30px;}
+.m-xxs {margin: 0.05rem;}
+.m-xs {margin: 0.1rem;}
+.m-sm {margin: 0.15rem;}
+.m {margin: 0.2rem;}
+.m-md {margin: 0.25rem;}
+.m-lg {margin: 0.3rem;}
 
 .m-n {margin: 0!important;}
 .m-l-n {margin-left: 0;}
-.m-l-xs {margin-left: 5px;}
-.m-l-sm {margin-left: 10px;}
-.m-l {margin-left: 15px;}
-.m-l-md {margin-left: 20px;}
-.m-l-lg {margin-left: 30px;}
+.m-l-xxs {margin-left: 0.05rem;}
+.m-l-xs {margin-left: 0.1rem;}
+.m-l-sm {margin-left: 0.15rem;}
+.m-l {margin-left: 0.2rem;}
+.m-l-md {margin-left: 0.25rem;}
+.m-l-lg {margin-left: 0.3rem;}
 
 .m-t-n {margin-top: 0;}
-.m-t-xxs {margin-top: 5px;}
-.m-t-xs {margin-top: 10px;}
-.m-t-sm {margin-top: 15px;}
-.m-t {margin-top: 20px;}
-.m-t-md {margin-top: 25px;}
-.m-t-lg {margin-top: 30px;}
+.m-t-xxs {margin-top: 0.05rem;}
+.m-t-xs {margin-top: 0.1rem;}
+.m-t-sm {margin-top: 0.15rem;}
+.m-t {margin-top: 0.2rem;}
+.m-t-md {margin-top: 0.25rem;}
+.m-t-lg {margin-top: 0.30rem;}
 
 .m-r-n {margin-right: 0;}
-.m-r-xxs {margin-right: 5px;}
-.m-r-xs {margin-right: 10px;}
-.m-r-sm {margin-right: 15px;}
-.m-r {margin-right: 20px;}
-.m-r-md {margin-right: 25px;}
-.m-r-lg {margin-right: 30px}
+.m-r-xxs {margin-right: 0.05rem;}
+.m-r-xs {margin-right: 0.1rem;}
+.m-r-sm {margin-right: 0.15rem;}
+.m-r {margin-right: 0.2rem;}
+.m-r-md {margin-right: 0.25rem;}
+.m-r-lg {margin-right: 0.3rem}
 
 .m-b-n {margin-bottom: 0;}
-.m-b-xxs {margin-bottom: 5px;}
-.m-b-xs {margin-bottom: 10px;}
-.m-b-sm {margin-bottom: 15px;}
-.m-b {margin-bottom: 20px;}
-.m-b-md {margin-bottom: 25px;}
-.m-b-lg {margin-bottom: 30px;}
+.m-b-xxs {margin-bottom: 0.05rem;}
+.m-b-xs {margin-bottom: 0.1rem;}
+.m-b-sm {margin-bottom: 0.15rem;}
+.m-b {margin-bottom: 0.2rem;}
+.m-b-md {margin-bottom: 0.25rem;}
+.m-b-lg {margin-bottom: 0.3rem;}
 
 .bg-white { background-color: #fff;}
 .bg-gray { background-color: #f9f9f9;}
