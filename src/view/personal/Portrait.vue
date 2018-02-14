@@ -7,7 +7,7 @@
     <div class="portrait">
       <div class="portrait-lg"></div>
 
-      <div class="portrait-xs"><img :src="portraito" alt="" width="100%" height="100%"></div>
+      <div class="portrait-xs"><img :src="portraito" alt=""></div>
     </div>
 
     <div class="btn font22">
@@ -42,6 +42,7 @@
           this.$Indicator.close();
           if (parseInt(response.data.status) === 1) {
             this.$Toast({message: response.data.msg, duration: 1800});
+            window.localStorage.setItem('head',response.data.fullpath.replace(this.$imageBasicUrl,''));
             setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''}, 1800)
           }
         }).catch(error => {this.$Indicator.close();})
@@ -99,6 +100,13 @@
         bottom: -0.6rem;
         border: 2px solid #fff;
         z-index: 4;
+        overflow: hidden;
+
+        img {
+          display: block;
+          width: 100%;
+          min-height: 1.6rem;
+        }
       }
     }
 

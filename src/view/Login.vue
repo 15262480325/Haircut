@@ -10,7 +10,7 @@
     <div v-if="loginType === 'account'" class="font24 p-l-md p-r-md">
       <form id="accountForm">
         <!--账号-->
-        <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="text" name="phone" v-model="account" placeholder="请输入账号"><i></i></div>
+        <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="text" name="phone" v-model="account" placeholder="请输入账号" autocomplete="off"><i></i></div>
 
         <!--密码-->
         <div class="group">
@@ -39,7 +39,7 @@
           </div>
 
           <!--发送按钮-->
-          <mt-button v-if="!sendState" class="send pink-btn" type="danger" @click.native="sendVerificationCode">点击发送验证码</mt-button>
+          <mt-button v-if="!sendState" class="send pink-btn" type="danger" @click.native="sendVerificationCode($event)">点击发送验证码</mt-button>
 
           <mt-button plain v-if="sendState" class="send" type="danger">{{countDown}} 秒后重新发送</mt-button>
         </div>
@@ -81,7 +81,7 @@
     },
     methods: {
       //点击发送验证码
-      sendVerificationCode () {
+      sendVerificationCode (event) {
         if (!regPhone(this.phone)) { //是否输入正确的手机号
           this.sendState = true;
           let timeDown = setInterval(() => { //定时器发送验证码时间递减
@@ -99,6 +99,7 @@
         }else {
           this.$Toast({message: '请输入正确手机号！', duration: 1800});
         }
+        event.preventDefault();
       },
 
       //登录方法

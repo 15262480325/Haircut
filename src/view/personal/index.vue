@@ -80,7 +80,7 @@
       background: #FA729A;
 
       .setting {
-        height: 0.66rem;
+        height: 1.2rem;
         text-align: right;
       }
 
@@ -91,12 +91,14 @@
           display: inline-block;
           width: 1.12rem;
           height: 1.12rem;
+          border-radius: 50%;
+          overflow: hidden;
           vertical-align: middle;
 
           img {
             display: block;
             width: 100%;
-            height: 100%;
+            min-height: 1.12rem;
           }
         }
 
