@@ -1,6 +1,6 @@
 <template>
   <!--底部菜单-->
-  <header class="header font24">
+  <header :class="hearderFixed ? 'header fixed font24' : 'header font24'">
     <div class="relative">
       <a v-if="showBackBtn" class="back mintui mintui-back" href="javascript:window.history.back()"></a>
       <span class="inline">{{hearderTitle}}</span>
@@ -13,6 +13,10 @@
   export default {
     name: 'HeaderComponent',
     props: {
+      'hearderFixed': { //公共头部是否绝对定位
+        type: Boolean,
+        default: true
+      },
       'hearderTitle': { //公共头部文字
         type: String,
         required: true,

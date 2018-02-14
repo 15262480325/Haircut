@@ -1,19 +1,19 @@
 <template>
   <div class="box">
     <!--头部-->
-    <header class="personal font26">
-      <div class="setting"><a class="iconfont icon-shezhi" href="javascript:;"></a></div>
+    <header class="personal font30">
+      <div class="setting"><router-link class="iconfont icon-shezhi" :to="'/Setting/' + $store.state.token"></router-link></div>
 
       <div class="info">
         <!--头像-->
         <div class="portrait">
-          <img src="../../assets/images/portraito.png" alt="">
+          <img :src="portraito" alt="">
         </div>
 
         <!--昵称-->
         <div class="autograph">
-          <p class="weight">姓名</p>
-          <p class="font22">我是一个低调的小帅哥</p>
+          <p class="weight">{{list.nickname}}</p>
+          <p class="font22">{{list.information}}</p>
         </div>
       </div>
 
@@ -32,26 +32,41 @@
       <a href="javascript:;"><span class="iconfont icon-youhuiquan">优惠券 <i class="icon icon-iconfontqianjin"></i></span></a>
 
       <!--钱-->
-      <a  href="javascript:;"><span class="iconfont icon-qian">钱 <i class="icon icon-iconfontqianjin"></i></span></a>
-
-      <!--设置-->
-      <a href="javascript:;"><span class="iconfont icon-shezhi" >设置 <i class="icon icon-iconfontqianjin"></i></span></a>
+      <a href="javascript:;"><span class="iconfont icon-qian">钱 <i class="icon icon-iconfontqianjin"></i></span></a>
     </div>
 
+    <!--设置-->
+    <div class="cell m-t-lg font26">
+      <router-link :to="'/Setting/' + $store.state.token"><span class="iconfont icon-shezhi" >设置 <i class="icon icon-iconfontqianjin"></i></span></router-link>
+    </div>
+
+    <!--底部菜单-->
+    <FooterComponent activeClass="user"></FooterComponent>
   </div>
 </template>
+
 <script>
+  import portraito from '../../assets/images/portraito.jpg'
+
   export default {
     name: 'Index',
+    components: {
+      FooterComponent: resolve => {require(['../../components/FooterComponent.vue'], resolve)}, //公共站底组件
+    },
     data () {
       return {
-
+        list: [],
+        portraito: ''
       }
     },
     methods: {},
-    mounted () {
-    },
-    created () {}
+    created () {
+      //获取基本信息
+      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+        this.list = response.data.data;
+        this.portraito =this.$imageBasicUrl + this.list.head || portraito;
+      })
+    }
   }
 </script>
 <style lang="scss" scoped>

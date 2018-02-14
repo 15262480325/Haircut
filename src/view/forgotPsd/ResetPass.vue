@@ -49,7 +49,7 @@
           this.$Toast({message: '密码不一致', duration: 1800});
         }else {
           this.$Indicator.open({text: '重置中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/api/set_password',{phone: this.phone, password: this.password, confirm_password	: this.confirmPass}).then(response => {
+          this.$axios.post('/api/set_password',{phone: this.phone, password: this.password, confirm_password	: this.confirmPass}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {

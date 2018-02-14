@@ -12,6 +12,10 @@ export default new Router({
   },
   routes: [
     {
+      path: '*',
+      redirect: '/'
+    },
+    {
       path: '/',
       name: 'Index',
       meta: {title: '首页'},
@@ -46,6 +50,36 @@ export default new Router({
       name: 'Personal',
       meta: {title: '个人中心', requiresAuth: true},
       component: resolve => require(['../view/personal/index'], resolve)
+    },
+    {
+      path: '/Setting/:id',
+      name: 'Setting',
+      meta: {title: '个人信息', requiresAuth: true},
+      component: resolve => require(['../view/personal/Setting'], resolve)
+    },
+    {
+      path: '/Portrait/:id',
+      name: 'Portrait',
+      meta: {title: '个人头像', requiresAuth: true},
+      component: resolve => require(['../view/personal/Portrait'], resolve)
+    },
+    {
+      path: '/Contact/:id',
+      name: 'Contact',
+      meta: {title: '联系方式', requiresAuth: true},
+      component: resolve => require(['../view/personal/Contact'], resolve)
+    },
+    {
+      path: '/Email/:id',
+      name: 'Email',
+      meta: {title: '邮箱', requiresAuth: true},
+      component: resolve => require(['../view/personal/Email'], resolve)
+    },
+    {
+      path: '/ChangePass/:id',
+      name: 'ChangePass',
+      meta: {title: '修改密码', requiresAuth: true},
+      component: resolve => require(['../view/personal/ChangePass'], resolve)
     },
   ]
 })

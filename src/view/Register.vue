@@ -63,7 +63,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/api/send_message',{tel: this.phone, type: 1}).then(response => {
+            this.$axios.post('/api/send_message',{tel: this.phone, type: 1}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -82,7 +82,7 @@
         }else {
           //提交注册
           this.$Indicator.open({text: '注册中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/api/register',{phone: this.phone, password: this.password, verify: this.verify}).then(response => {
+          this.$axios.post('/api/register',{phone: this.phone, password: this.password, verify: this.verify}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             console.log(response.data);

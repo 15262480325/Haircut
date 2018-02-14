@@ -94,7 +94,7 @@
       }
     },
     computed: mapState({
-      nickName: state => state.token
+      nickName: state => state.nickName
     }),
     methods: {
       //头部右侧点击触发事件 判断是否登录

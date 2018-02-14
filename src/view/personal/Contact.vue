@@ -1,7 +1,7 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = "true" hearderTitle="找回密码"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="联系方式"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
@@ -22,16 +22,16 @@
 
     <!--下一步按钮-->
     <div class="p-l-md p-r-md m-t-lg">
-      <mt-button class="pink-btn" size="large" type="danger" @click.native="nextStep">下一步</mt-button>
+      <mt-button class="pink-btn" size="large" type="danger" @click.native="changePhone">确定</mt-button>
     </div>
   </div>
 
 </template>
 
 <script>
-  import {isValEmpty,regPhone} from '../../assets/js/regex'
+  import {regPhone} from '../../assets/js/regex'
   export default {
-    name: 'ForgotPsd',
+    name: 'Contact',
     components: {
       HeaderComponent: resolve => {require(['../../components/HeaderComponent.vue'], resolve)}, //公共头部组件
     },
@@ -57,7 +57,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/send_message',{tel: this.phone, type: 2}).then(response => {
+            this.$axios.post('/api/send_message',{tel: this.phone}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -65,23 +65,29 @@
         }
       },
 
-      //点击下一步
-      nextStep () {
+      //更改联系方式
+      changePhone () {
         if (regPhone(this.phone)) {
           this.$Toast({message: '请输入正确的手机号!',duration: 1800});
-        }else if (isValEmpty(this.code)) {
+        }else if (this.code === '') {
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/check_code',{verify: this.code}).then(response => {
+          this.$axios.post('/api/upgrade_phone',{uid: this.$store.state.token, phone: this.phone, verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/ResetPass'},1800)
+              setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }
       }
+    },
+    created () {
+      //获取联系方式
+      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+        this.phone = response.data.data.phone;
+      })
     }
   }
 </script>

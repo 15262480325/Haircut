@@ -1,16 +1,16 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = "true" hearderTitle="找回密码"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="邮箱"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
-      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="tel" v-model="phone" placeholder="请输入手机号"><i></i></div>
+      <div class="group"><label class="font32 iconfont icon-youjian"></label><input type="tel" v-model="email" placeholder="请输入邮箱"><i></i></div>
 
       <!--验证码-->
       <div class="group">
         <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma"></label><input type="text" v-model="code" maxlength="4" placeholder="请输入验证码"><i></i>
+          <label class="font32 iconfont icon-yanzhengma"></label><input type="text" v-model="code" maxlength="8" placeholder="请输入验证码"><i></i>
         </div>
 
         <!--发送按钮-->
@@ -22,16 +22,16 @@
 
     <!--下一步按钮-->
     <div class="p-l-md p-r-md m-t-lg">
-      <mt-button class="pink-btn" size="large" type="danger" @click.native="nextStep">下一步</mt-button>
+      <mt-button class="pink-btn" size="large" type="danger" @click.native="changePhone">确定</mt-button>
     </div>
   </div>
 
 </template>
 
 <script>
-  import {isValEmpty,regPhone} from '../../assets/js/regex'
+  import {regEmail} from '../../assets/js/regex'
   export default {
-    name: 'ForgotPsd',
+    name: 'Email',
     components: {
       HeaderComponent: resolve => {require(['../../components/HeaderComponent.vue'], resolve)}, //公共头部组件
     },
@@ -39,14 +39,14 @@
       return {
         sendState: false, //发送验证码状态
         countDown: 60, //发送验证码倒计时
-        phone: '', //手机号
+        email: '', //手机号
         code: '' //验证码
       }
     },
     methods: {
       //点击发送验证码
       sendVerificationCode () {
-        if (!regPhone(this.phone)) { //是否输入正确的手机号
+        if (!regEmail(this.email)) {
             this.sendState = true;
             let timeDown = setInterval(() => { //定时器发送验证码时间递减
               if (this.countDown -- <= 0) { //判断时间是否变成0
@@ -57,31 +57,37 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/send_message',{tel: this.phone, type: 2}).then(response => {
+            this.$axios.post('/api/send_email_code', 'email='+this.email+'').then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
-          this.$Toast({message: '请输入正确手机号！', duration: 1800});
+          this.$Toast({message: '请输入正确邮箱！', duration: 1800});
         }
       },
 
-      //点击下一步
-      nextStep () {
-        if (regPhone(this.phone)) {
-          this.$Toast({message: '请输入正确的手机号!',duration: 1800});
-        }else if (isValEmpty(this.code)) {
+      //更改联系方式
+      changePhone () {
+        if (regEmail(this.email)) {
+          this.$Toast({message: '请输入正确的邮箱!',duration: 1800});
+        }else if (this.code === '') {
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/check_code',{verify: this.code}).then(response => {
+          this.$axios.post('/api/upgrade_email',{uid: this.$store.state.token, email: this.email, verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/ResetPass'},1800)
+              setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }
       }
+    },
+    created () {
+      //获取邮箱
+      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+        this.email = response.data.data.email;
+      })
     }
   }
 </script>

@@ -4,40 +4,46 @@
     <HeaderComponent :showBackBtn = "true" hearderTitle="登录"></HeaderComponent>
 
     <!--logo-->
-    <div class="logo"><img src="../assets/images/portraito.png" alt=""></div>
+    <div class="logo"><img :src="$store.state.head"></div>
 
     <!--账户登录-->
     <div v-if="loginType === 'account'" class="font24 p-l-md p-r-md">
-      <!--账号-->
-      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="text" v-model="phone" placeholder="请输入账号"><i></i></div>
+      <form id="accountForm">
+        <!--账号-->
+        <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="text" name="phone" v-model="account" placeholder="请输入账号"><i></i></div>
 
-      <!--密码-->
-      <div class="group">
-        <div class="relative">
-          <label class="font32 iconfont icon-201"></label><input type="password" v-model="password" minlength="6" maxlength="18" placeholder="请输入密码"><i></i>
+        <!--密码-->
+        <div class="group">
+          <div class="relative">
+            <label class="font32 iconfont icon-201"></label><input type="password" name="password" v-model="password" minlength="6" maxlength="18" placeholder="请输入密码"><i></i>
+          </div>
+
+          <!--忘记密码-->
+          <router-link class="forget" to="/ForgotPsd">找回密码</router-link>
         </div>
-
-        <!--忘记密码-->
-        <router-link class="forget" to="/ForgotPsd">找回密码</router-link>
-      </div>
+      </form>
     </div>
 
     <!--短信登录-->
     <div v-if="loginType === 'sms'" class="font24 p-l-md p-r-md">
-      <!--账号-->
-      <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="tel" maxlength="11" v-model="phone" placeholder="请输入手机号"><i></i></div>
+      <form id="smsForm" action="">
+        <input type="hidden" name="type" value="1">
 
-      <!--验证码-->
-      <div class="group">
-        <div class="relative">
-          <label class="font32 iconfont icon-yanzhengma"></label><input type="tel" maxlength="4" v-model="password" placeholder="请输入验证码"><i></i>
+        <!--账号-->
+        <div class="group"><label class="font32 iconfont icon-shouji"></label><input type="tel" maxlength="11" name="phone" v-model="phone" placeholder="请输入手机号"><i></i></div>
+
+        <!--验证码-->
+        <div class="group">
+          <div class="relative">
+            <label class="font32 iconfont icon-yanzhengma"></label><input type="tel" maxlength="4" name="password" v-model="code" placeholder="请输入验证码"><i></i>
+          </div>
+
+          <!--发送按钮-->
+          <mt-button v-if="!sendState" class="send pink-btn" type="danger" @click.native="sendVerificationCode">点击发送验证码</mt-button>
+
+          <mt-button plain v-if="sendState" class="send" type="danger">{{countDown}} 秒后重新发送</mt-button>
         </div>
-
-        <!--发送按钮-->
-        <mt-button v-if="!sendState" class="send pink-btn" type="danger" @click.native="sendVerificationCode">点击发送验证码</mt-button>
-
-        <mt-button plain v-if="sendState" class="send" type="danger">{{countDown}} 秒后重新发送</mt-button>
-      </div>
+      </form>
     </div>
 
     <!--提交按钮-->
@@ -48,8 +54,8 @@
     <p class="font24 txtC m-t-md"><router-link class="pink" to="/Register">没有账号,马上注册</router-link></p>
 
     <p class="font24 txtC m-t-md">
-      <a v-if="loginType === 'account'" class="pink" href="javascript:;" @click="loginType = 'sms'; phone = ''; password = ''">手机验证登录</a>
-      <a v-if="loginType === 'sms'" class="pink" href="javascript:;" @click="loginType = 'account'; phone = ''; password = ''">账号登录</a>
+      <a v-if="loginType === 'account'" class="pink" href="javascript:;" @click="loginType = 'sms'">手机验证登录</a>
+      <a v-if="loginType === 'sms'" class="pink" href="javascript:;" @click="loginType = 'account'">账号登录</a>
     </p>
   </div>
 
@@ -65,8 +71,10 @@
     data () {
       return {
         loginType: 'account', //登录方式 ： 账户/短信
-        phone: '',
+        account: this.$store.state.account,
         password: '',
+        phone: '',
+        code: '',
         sendState: false, //发送验证码状态
         countDown: 60 //发送验证码倒计时
       }
@@ -85,7 +93,7 @@
           }, 1000)
 
           //发送验证码
-          this.$axios.post('/api/api/send_message',{tel: this.phone, type: 0}).then(response => {
+          this.$axios.post('/api/send_message',{tel: this.phone, type: 0}).then(response => {
             this.$Toast({message: response.data.msg, duration: 1800});
           }).catch(error => {})
         }else {
@@ -94,13 +102,17 @@
       },
 
       //登录方法
-      loginRequest (type) {
+      loginRequest (form) {
         this.$Indicator.open({text: '登录中...', spinnerType: 'fading-circle'});
-        this.$axios.post('/api/api/login',{phone: this.phone, password: this.password, type: type}).then(response => {
+        this.$axios.post('/api/login', new FormData(document.getElementById(form))).then(response => {
           this.$Indicator.close();
           this.$Toast({message: response.data.msg, duration: 1800});
           if (parseInt(response.data.status) === 1) { //status == 1 成功
-            this.$store.commit('saveAccount', response.data.data);
+            window.localStorage.setItem('account',response.data.data.phone);
+            window.localStorage.setItem('head',response.data.data.head || '');
+            window.sessionStorage.setItem('loginToken',response.data.data.user_id);
+            window.sessionStorage.setItem('nickName',response.data.data.nickname || '');
+            // this.$store.commit('saveAccount', response.data.data);
             setTimeout(() => {window.location.href = '/';},1800)
           }
         }).catch(error => {this.$Indicator.close()})
@@ -108,12 +120,12 @@
 
       //验证账号登录
       accountLogin () {
-        if (this.phone === '') {
+        if (this.account === '') {
           this.$Toast({message: '请输入账号', duration: 1800});
         }else if (this.password === '') {
           this.$Toast({message: '请输入密码', duration: 1800});
         }else {
-          this.loginRequest('');
+          this.loginRequest('accountForm');
         }
       },
 
@@ -121,10 +133,10 @@
       smsLogin () {
         if (regPhone(this.phone)) {
           this.$Toast({message: '请输入正确的手机号', duration: 1800});
-        }else if (this.password === '') {
+        }else if (this.code === '') {
           this.$Toast({message: '请输入验证码', duration: 1800});
         }else {
-          this.loginRequest('1');
+          this.loginRequest('smsForm');
         }
       },
 
