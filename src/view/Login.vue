@@ -93,7 +93,7 @@
           }, 1000)
 
           //发送验证码
-          this.$axios.post('/api/send_message',{tel: this.phone, type: 0}).then(response => {
+          this.$axios.post('/send_message',{tel: this.phone, type: 0}).then(response => {
             this.$Toast({message: response.data.msg, duration: 1800});
           }).catch(error => {})
         }else {
@@ -105,16 +105,12 @@
       //登录方法
       loginRequest (form) {
         this.$Indicator.open({text: '登录中...', spinnerType: 'fading-circle'});
-        this.$axios.post('/api/login', new FormData(document.getElementById(form))).then(response => {
+        this.$axios.post('/login', new FormData(document.getElementById(form))).then(response => {
           this.$Indicator.close();
           this.$Toast({message: response.data.msg, duration: 1800});
           if (parseInt(response.data.status) === 1) { //status == 1 成功
-            window.localStorage.setItem('account',response.data.data.phone);
-            window.localStorage.setItem('head',response.data.data.head || '');
-            window.sessionStorage.setItem('loginToken',response.data.data.user_id);
-            window.sessionStorage.setItem('nickName',response.data.data.nickname || '');
-            // this.$store.commit('saveAccount', response.data.data);
-            setTimeout(() => {window.location.href = '/';},1800)
+            this.$store.commit('saveAccount', response.data.data);
+            setTimeout(() => {this.$router.push({ path: '/' })}, 1800)
           }
         }).catch(error => {this.$Indicator.close()})
       },

@@ -2,7 +2,7 @@
   <!--底部菜单-->
   <header :class="hearderFixed ? 'header fixed font24' : 'header font24'">
     <div class="relative">
-      <a v-if="showBackBtn" class="back mintui mintui-back" href="javascript:window.history.back()"></a>
+      <a v-if="showBackBtn" class="back mintui mintui-back"  @click="goBack"></a>
       <span class="inline">{{hearderTitle}}</span>
       <a v-if="shouMeunBtn" class="meun" href="javascript:;" @click="clickEvent"><i :class="icon"></i> {{meunTitle}}</a>
     </div>
@@ -36,6 +36,11 @@
       },
       'clickEvent': { //公共头部右侧功能按钮点击触发的事件
         type: Function
+      }
+    },
+    methods: {
+      goBack () {
+        this.$router.back();
       }
     }
   }

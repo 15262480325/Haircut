@@ -57,7 +57,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/send_message',{tel: this.phone, type: 2}).then(response => {
+            this.$axios.post('/send_message',{tel: this.phone, type: 2}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -73,7 +73,7 @@
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/check_code',{verify: this.code}).then(response => {
+          this.$axios.post('/check_code',{verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {

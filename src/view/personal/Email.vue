@@ -57,7 +57,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/send_email_code', 'email='+this.email+'').then(response => {
+            this.$axios.post('/send_email_code', 'email='+this.email+'').then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -73,11 +73,11 @@
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/upgrade_email',{uid: this.$store.state.token, email: this.email, verify: this.code}).then(response => {
+          this.$axios.post('/upgrade_email',{uid: this.$store.state.token, email: this.email, verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''},1800)
+              setTimeout(() => {this.$router.push({name: 'Setting', params: {id: this.$store.state.token}})},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }
@@ -85,7 +85,7 @@
     },
     created () {
       //获取邮箱
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.email = response.data.data.email;
       })
     }

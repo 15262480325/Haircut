@@ -99,8 +99,7 @@
     methods: {
       //头部右侧点击触发事件 判断是否登录
       isLogin () {
-        let route = this.$store.state.token === '' ? '/Login' : '/Personal/'+this.$store.state.token+'';
-        window.location.href = route;
+        this.$store.state.token === '' ? this.$router.push({path: '/Login'}) : this.$router.push({path: '/Personal/'+this.$store.state.token+''});
       }
     },
     mounted () {

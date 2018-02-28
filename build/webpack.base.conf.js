@@ -18,7 +18,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath,
-      chunkFilename: 'chunk[id].js?[chunkhash]'
+    chunkFilename: 'chunk[id].js?[chunkhash]'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

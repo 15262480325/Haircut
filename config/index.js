@@ -32,11 +32,11 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-        target:'http://api.jswei.cn',
+      '/agent':{
+        target:'http://api.jswei.cn/api/',
         changeOrigin:true,
         pathRewrite:{
-          '^/api':''
+          '^/agent':''
         }
       }
     },

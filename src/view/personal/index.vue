@@ -62,7 +62,7 @@
     methods: {},
     created () {
       //获取基本信息
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.list = response.data.data;
         this.portraito =this.$imageBasicUrl + this.list.head || portraito;
       })

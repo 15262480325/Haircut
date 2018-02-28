@@ -8,7 +8,7 @@ import axios from 'axios' //基于 Promise 的，为浏览器和 Node.js 设计�
 import {Button, Swipe, SwipeItem,Toast, Popup, Radio, MessageBox, Indicator} from 'mint-ui' //mint-ui的部分组件
 import * as filter from './filter/filter' //过滤器文件
 
-axios.defaults.baseURL = '/api/' //请求基地址
+axios.defaults.baseURL = '/agent' //请求基地址
 
 axios.defaults.timeout = 6000 //响应时间
 

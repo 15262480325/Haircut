@@ -57,7 +57,7 @@
             }, 1000)
 
           //发送验证码
-            this.$axios.post('/api/send_message',{tel: this.phone}).then(response => {
+            this.$axios.post('/send_message',{tel: this.phone}).then(response => {
               this.$Toast({message: response.data.msg, duration: 1800});
             }).catch(error => {})
         }else {
@@ -73,7 +73,7 @@
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/api/upgrade_phone',{uid: this.$store.state.token, phone: this.phone, verify: this.code}).then(response => {
+          this.$axios.post('/upgrade_phone',{uid: this.$store.state.token, phone: this.phone, verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
@@ -85,7 +85,7 @@
     },
     created () {
       //获取联系方式
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.phone = response.data.data.phone;
       })
     }

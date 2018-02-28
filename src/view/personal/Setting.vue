@@ -47,9 +47,9 @@
         <span>修改密码</span>
       </router-link>
 
-      <router-link to="/Login">
+      <a href="javascript:;" @click="switchAccount">
         <span>切换账号</span>
-      </router-link>
+      </a>
     </div>
 
     <div class="setting m-t-lg font24">
@@ -91,7 +91,7 @@
         this.$MessageBox.prompt(''+title+'','').then(({value}) => {
           if (value) {
             this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
-            this.$axios.post('/api/'+ url,'uid='+this.$store.state.token+'&'+parameter+'='+value+'').then(response => {
+            this.$axios.post('/'+ url,'uid='+this.$store.state.token+'&'+parameter+'='+value+'').then(response => {
               this.$Indicator.close();
               this.$Toast({message: response.data.msg, duration: 1800});
               parseInt(response.data.status) === 1 ? this.list[parameter] = response.data.nickname || response.data.information : '';
@@ -100,20 +100,23 @@
         }).catch(error => {this.$Indicator.close();});
       },
 
+      //切换账号
+      switchAccount () {
+        this.$store.commit('cancelLoginState');
+        this.$router.push({ path: '/Login' })
+      },
+
       //退出登录
       loginOut () {
-        window.localStorage.removeItem('account');
-        window.localStorage.removeItem('head');
-        window.sessionStorage.removeItem('loginToken');
-        window.sessionStorage.removeItem('nickName');
-        window.location.href = '/';
+        this.$store.commit('cancelLoginState');
+        this.$router.push({ path: '/' })
       }
     },
     watch: {
       sexRadio (value,oldval) {
         this.popupVisible = false;
         this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
-        this.$axios.post('/api/upgrade_sex','uid='+this.$store.state.token+'&sex='+value+'').then(response => {
+        this.$axios.post('/upgrade_sex','uid='+this.$store.state.token+'&sex='+value+'').then(response => {
           this.$Indicator.close();
           this.$Toast({message: response.data.msg, duration: 1800});
           parseInt(response.data.status) === 1 ? this.list.sex = value : '';
@@ -124,7 +127,7 @@
     },
     created () {
       //获取基本信息
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.list = response.data.data;
         this.portraito =this.$imageBasicUrl + this.list.head || portraito;
       })

@@ -42,16 +42,14 @@
       async verifyPass () {
         this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
         //判断原密码是否正确
-        const loginStatus = await this.$axios.post('/api/login',{phone: this.account, password: this.originalPass});
+        const loginStatus = await this.$axios.post('/login',{phone: this.account, password: this.originalPass});
         if (parseInt(loginStatus.data.status) === 1) {  //原密码正确修改密码
-          this.$axios.post('/api/set_password',{phone: this.account, password: this.newPass, confirm_password: this.confirmPass}).then(response => {
+          this.$axios.post('/set_password',{phone: this.account, password: this.newPass, confirm_password: this.confirmPass}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) { //status == 1 成功
-              setTimeout(() => {
-                window.sessionStorage.removeItem('loginToken');
-                window.location.href = '/Login';
-              },1800)
+              this.$store.commit('cancelLoginState');
+              setTimeout(() => {this.$router.push({ path: '/Login' })},1800)
             }
           }).catch(error => {this.$Indicator.close()})
         }else {
@@ -77,7 +75,7 @@
     },
     created () {
       //获取账号
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.account = response.data.data.phone;
       })
     }

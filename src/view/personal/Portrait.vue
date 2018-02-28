@@ -38,19 +38,21 @@
         let formDate = new FormData();
         formDate.append('uid',this.$store.state.token);
         formDate.append('image',event.target.files[0]);
-        this.$axios.post('/api/upgrade_head', formDate).then(response => {
+        this.$axios.post('/upgrade_head', formDate).then(response => {
           this.$Indicator.close();
+          this.$Toast({message: response.data.msg, duration: 1800});
           if (parseInt(response.data.status) === 1) {
-            this.$Toast({message: response.data.msg, duration: 1800});
-            window.localStorage.setItem('head',response.data.fullpath.replace(this.$imageBasicUrl,''));
-            setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''}, 1800)
+            this.$store.commit('changePortraito', response.data.fullpath);
+            setTimeout(() => {setTimeout(() => {this.$router.push({name: 'Setting', params: {id: this.$store.state.token}})},1800)}, 1800)
+          }else {
+            event.target.value= '';
           }
-        }).catch(error => {this.$Indicator.close();})
+        }).catch(error => {this.$Indicator.close(); event.target.value= ''})
       }
     },
     created () {
       //获取基本信息
-      this.$axios.post('/api/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
         this.list = response.data.data;
         this.portraito = this.$imageBasicUrl + this.list.head || portraito;
         document.styleSheets[0].addRule('.portrait-lg:before','background-image: url('+this.portraito+')');
@@ -119,15 +121,14 @@
       }
 
       label {
-        display: block;
+        display: inline-block;
         width: 76%;
         line-height: 0.55rem;
-        margin: 0 auto;
         border: 1px solid #dcdcdc;
       }
 
       label:first-child {
-        margin: 0 auto 0.4rem auto;
+        margin-bottom: 0.42rem;
       }
     }
   }
