@@ -85,7 +85,6 @@
           this.$axios.post('/register',{phone: this.phone, password: this.password, verify: this.verify}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
-            console.log(response.data);
             if (parseInt(response.data.status) === 1) { //status == 1 注册成功
               setTimeout(() => {window.location.href = '/Login';},1800)
             }
