@@ -62,9 +62,9 @@
     methods: {},
     created () {
       //获取基本信息
-      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
-        this.portraito =this.$imageBasicUrl + this.list.head || portraito;
+        this.portraito = this.$imageBasicUrl + this.list.head || portraito;
       })
     }
   }

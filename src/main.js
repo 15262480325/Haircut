@@ -39,7 +39,7 @@ Vue.component(Radio.name, Radio) //mint-ui 公共Radio组件
 //通过路由修改每个页面的title
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title;
-  if (store.state.token === '' && to.meta.requiresAuth) {
+  if (store.state.loginState.token === '' && to.meta.requiresAuth) {
     MessageBox.confirm('请登录!').then(action => {next('/Login');}).catch(error => {next('/')});
   }else {
     next()

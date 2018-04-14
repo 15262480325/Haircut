@@ -94,12 +94,12 @@
       }
     },
     computed: mapState({
-      nickName: state => state.nickName
+      nickName: state => state.loginState.nickName
     }),
     methods: {
       //头部右侧点击触发事件 判断是否登录
       isLogin () {
-        this.$store.state.token === '' ? this.$router.push({path: '/Login'}) : this.$router.push({path: '/Personal/'+this.$store.state.token+''});
+        this.$store.state.loginState.token === '' ? this.$router.push({path: '/Login'}) : this.$router.push({path: '/Personal/'+this.$store.state.loginState.token+''});
       }
     },
     mounted () {

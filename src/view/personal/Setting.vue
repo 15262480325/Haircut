@@ -5,7 +5,7 @@
 
     <div class="setting font24">
       <!--头像-->
-      <router-link :to="'/Portrait/' + $store.state.token">
+      <router-link :to="'/Portrait/' + $store.state.loginState.token">
         <span>头像 <img v-if="portraito !== ''" :src="portraito"></span>
       </router-link>
 
@@ -15,19 +15,19 @@
       </a>
 
       <!--昵称-->
-      <a href="javascript:;" @click="changeBasicInfo('昵称','upgrade_nickname','nickname')">
+      <a href="javascript:;" @click="changeNickName">
         <span>昵称 <label>{{list.nickname || ''}}</label></span>
       </a>
     </div>
 
     <div class="setting m-t-lg font24">
       <!--联系方式-->
-      <router-link :to="'/Contact/' + $store.state.token">
+      <router-link :to="'/Contact/' + $store.state.loginState.token">
         <span>联系方式 <label>{{list.tel}}</label></span>
       </router-link>
 
       <!--邮箱-->
-      <router-link :to="'/Email/' + $store.state.token">
+      <router-link :to="'/Email/' + $store.state.loginState.token">
         <span>邮箱 <label>{{list.email}}</label></span>
       </router-link>
 
@@ -37,13 +37,13 @@
       </a>
 
       <!--个性签名-->
-      <a href="javascript:;" @click="changeBasicInfo('个性签名','set_information','information')">
+      <a href="javascript:;" @click="changeInformatione">
         <span>个性签名 <label>{{list.information}}</label></span>
       </a>
     </div>
 
     <div class="setting m-t-lg font24">
-      <router-link :to="'/ChangePass/' + $store.state.token">
+      <router-link :to="'/ChangePass/' + $store.state.loginState.token">
         <span>修改密码</span>
       </router-link>
 
@@ -84,17 +84,36 @@
     },
     methods: {
       //回到个人中心
-      toPersonal () {window.location.href = '/Personal/'+this.$store.state.token+''},
+      toPersonal () {this.$router.push('/Personal/'+this.$store.state.loginState.token+'')},
 
-      //修改昵称/个性签名
-      changeBasicInfo (title,url,parameter) {
-        this.$MessageBox.prompt(''+title+'','').then(({value}) => {
+      //修改昵称
+      changeNickName () {
+        this.$MessageBox.prompt('昵称','').then(({value}) => {
           if (value) {
             this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
-            this.$axios.post('/'+ url,'uid='+this.$store.state.token+'&'+parameter+'='+value+'').then(response => {
+            this.$axios.post('/upgrade_nickname','uid='+this.$store.state.loginState.token+'&nickname='+value+'').then(response => {
               this.$Indicator.close();
               this.$Toast({message: response.data.msg, duration: 1800});
-              parseInt(response.data.status) === 1 ? this.list[parameter] = response.data.nickname || response.data.information : '';
+              if (parseInt(response.data.status) === 1) {
+                this.list.nickname = response.data.nickname;
+                this.$store.commit('changeNickName', response.data.nickname);
+              }
+            })
+          }
+        }).catch(error => {this.$Indicator.close();});
+      },
+
+      //修改个性签名
+      changeInformatione () {
+        this.$MessageBox.prompt('个性签名','').then(({value}) => {
+          if (value) {
+            this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
+            this.$axios.post('/set_information','uid='+this.$store.state.loginState.token+'&information='+value+'').then(response => {
+              this.$Indicator.close();
+              this.$Toast({message: response.data.msg, duration: 1800});
+              if (parseInt(response.data.status) === 1) {
+                this.list.information = response.data.information;
+              }
             })
           }
         }).catch(error => {this.$Indicator.close();});
@@ -116,7 +135,7 @@
       sexRadio (value,oldval) {
         this.popupVisible = false;
         this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
-        this.$axios.post('/upgrade_sex','uid='+this.$store.state.token+'&sex='+value+'').then(response => {
+        this.$axios.post('/upgrade_sex','uid='+this.$store.state.loginState.token+'&sex='+value+'').then(response => {
           this.$Indicator.close();
           this.$Toast({message: response.data.msg, duration: 1800});
           parseInt(response.data.status) === 1 ? this.list.sex = value : '';
@@ -127,9 +146,9 @@
     },
     created () {
       //获取基本信息
-      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
-        this.portraito =this.$imageBasicUrl + this.list.head || portraito;
+        this.portraito = this.$imageBasicUrl + this.list.head || portraito;
       })
     }
   }

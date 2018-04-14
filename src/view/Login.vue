@@ -4,7 +4,7 @@
     <HeaderComponent :showBackBtn = "true" hearderTitle="登录"></HeaderComponent>
 
     <!--logo-->
-    <div class="logo"><img :src="$store.state.head"></div>
+    <div class="logo"><img :src="$store.state.loginState.head"></div>
 
     <!--账户登录-->
     <div v-if="loginType === 'account'" class="font24 p-l-md p-r-md">
@@ -71,7 +71,7 @@
     data () {
       return {
         loginType: 'account', //登录方式 ： 账户/短信
-        account: this.$store.state.account,
+        account: this.$store.state.loginState.account,
         password: '',
         phone: '',
         code: '',
