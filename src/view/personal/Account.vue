@@ -1,7 +1,7 @@
 <template>
   <div class="container bg-white">
     <!--头部-->
-    <HeaderComponent :showBackBtn = "true" hearderTitle="联系方式"></HeaderComponent>
+    <HeaderComponent :showBackBtn = "true" hearderTitle="账号"></HeaderComponent>
 
     <div class="font24 p-l-md p-r-md m-t-lg">
       <!--手机号-->
@@ -73,11 +73,11 @@
           this.$Toast({message: '请输入验证码！', duration: 1800});
         }else {
           this.$Indicator.open({text: '提交中...', spinnerType: 'fading-circle'});
-          this.$axios.post('/upgrade_phone',{uid: this.$store.state.token, phone: this.phone, verify: this.code}).then(response => {
+          this.$axios.post('/upgrade_phone',{uid: this.$store.state.loginState.token, phone: this.phone, verify: this.code}).then(response => {
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/Setting/'+this.$store.state.token+''},1800)
+              setTimeout(() => {this.$router.replace({ path: '/Setting/'+this.$store.state.loginState.token+''})},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }
@@ -85,7 +85,7 @@
     },
     created () {
       //获取联系方式
-      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.phone = response.data.data.phone;
       })
     }

@@ -32,6 +32,7 @@ export const loginState = {
     //清空登录状态
     cancelLoginState (state) {
       state.token = '';
+      state.nickName = '';
     }
   }
 }

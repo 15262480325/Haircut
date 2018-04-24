@@ -2,7 +2,7 @@
   <div class="box">
     <!--头部-->
     <header class="personal font30">
-      <div class="setting"><router-link class="iconfont icon-shezhi" :to="'/Setting/' + $store.state.token"></router-link></div>
+      <div class="setting"><router-link class="iconfont icon-shezhi" :to="'/Setting/' + $store.state.loginState.token"></router-link></div>
 
       <div class="info">
         <!--头像-->

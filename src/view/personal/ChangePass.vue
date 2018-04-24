@@ -48,8 +48,8 @@
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) { //status == 1 成功
-              this.$store.commit('cancelLoginState');
-              setTimeout(() => {this.$router.push({ path: '/Login' })},1800)
+              this.$store.loginState.commit('cancelLoginState');
+              setTimeout(() => {this.$router.replace({ path: '/Login' })},1800)
             }
           }).catch(error => {this.$Indicator.close()})
         }else {
@@ -75,7 +75,7 @@
     },
     created () {
       //获取账号
-      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.account = response.data.data.phone;
       })
     }

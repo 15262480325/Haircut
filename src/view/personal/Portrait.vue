@@ -36,14 +36,14 @@
       changePortrait (event) {
         this.$Indicator.open({text: '修改中...', spinnerType: 'fading-circle'});
         let formDate = new FormData();
-        formDate.append('uid',this.$store.state.token);
+        formDate.append('uid',this.$store.state.loginState.token);
         formDate.append('image',event.target.files[0]);
         this.$axios.post('/upgrade_head', formDate).then(response => {
           this.$Indicator.close();
           this.$Toast({message: response.data.msg, duration: 1800});
           if (parseInt(response.data.status) === 1) {
             this.$store.commit('changePortraito', response.data.fullpath);
-            setTimeout(() => {setTimeout(() => {this.$router.push({name: 'Setting', params: {id: this.$store.state.token}})},1800)}, 1800)
+            setTimeout(() => {setTimeout(() => {this.$router.replace({name: 'Setting', params: {id: this.$store.state.loginState.token}})},1800)}, 1800)
           }else {
             event.target.value= '';
           }
@@ -52,7 +52,7 @@
     },
     created () {
       //获取基本信息
-      this.$axios.post('/personal', {id: this.$store.state.token}).then(response => {
+      this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
         this.portraito = this.$imageBasicUrl + this.list.head || portraito;
         document.styleSheets[0].addRule('.portrait-lg:before','background-image: url('+this.portraito+')');

@@ -10,9 +10,9 @@
       </router-link>
 
       <!--账号-->
-      <a>
+      <router-link :to="'/Account/' + $store.state.loginState.token">
         <span>账号 <label>{{list.phone}}</label></span>
-      </a>
+      </router-link>
 
       <!--昵称-->
       <a href="javascript:;" @click="changeNickName">
@@ -22,9 +22,9 @@
 
     <div class="setting m-t-lg font24">
       <!--联系方式-->
-      <router-link :to="'/Contact/' + $store.state.loginState.token">
-        <span>联系方式 <label>{{list.tel}}</label></span>
-      </router-link>
+      <a href="javascript:;">
+        <span>联系方式 <label>{{list.phone}}</label></span>
+      </a>
 
       <!--邮箱-->
       <router-link :to="'/Email/' + $store.state.loginState.token">
@@ -84,7 +84,7 @@
     },
     methods: {
       //回到个人中心
-      toPersonal () {this.$router.push('/Personal/'+this.$store.state.loginState.token+'')},
+      toPersonal () {this.$router.replace('/Personal/'+this.$store.state.loginState.token+'')},
 
       //修改昵称
       changeNickName () {
@@ -122,13 +122,13 @@
       //切换账号
       switchAccount () {
         this.$store.commit('cancelLoginState');
-        this.$router.push({ path: '/Login' })
+        this.$router.replace({ path: '/Login' })
       },
 
       //退出登录
       loginOut () {
         this.$store.commit('cancelLoginState');
-        this.$router.push({ path: '/' })
+        this.$router.replace({ path: '/' })
       }
     },
     watch: {

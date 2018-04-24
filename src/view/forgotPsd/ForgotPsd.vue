@@ -77,7 +77,7 @@
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) {
-              setTimeout(() => {window.location.href = '/ResetPass'},1800)
+              setTimeout(() => {this.$router.replace({path: '/ResetPass'})},1800)
             }
           }).catch(error => {this.$Indicator.close();})
         }

@@ -64,10 +64,10 @@ export default new Router({
       component: resolve => require(['../view/personal/Portrait'], resolve)
     },
     {
-      path: '/Contact/:id',
-      name: 'Contact',
-      meta: {title: '联系方式', requiresAuth: true},
-      component: resolve => require(['../view/personal/Contact'], resolve)
+      path: '/Account/:id',
+      name: 'Account',
+      meta: {title: '账号', requiresAuth: true},
+      component: resolve => require(['../view/personal/Account'], resolve)
     },
     {
       path: '/Email/:id',

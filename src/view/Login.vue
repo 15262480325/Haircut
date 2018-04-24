@@ -110,7 +110,7 @@
           this.$Toast({message: response.data.msg, duration: 1800});
           if (parseInt(response.data.status) === 1) { //status == 1 成功
             this.$store.commit('saveAccount', response.data.data);
-            setTimeout(() => {this.$router.push({ path: '/' })}, 1800)
+            setTimeout(() => {this.$router.replace({ path: '/' })}, 1800)
           }
         }).catch(error => {this.$Indicator.close()})
       },
