@@ -54,7 +54,11 @@
       //获取基本信息
       this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
-        this.portraito = this.$imageBasicUrl + this.list.head || portraito;
+        if (this.list.head !== null && this.list.head !== '') {
+          this.portraito = this.$imageBasicUrl + this.list.head;
+        }else {
+          this.portraito = portraito
+        }
         document.styleSheets[0].addRule('.portrait-lg:before','background-image: url('+this.portraito+')');
       })
     }

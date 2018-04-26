@@ -40,7 +40,7 @@ Vue.component(Radio.name, Radio) //mint-ui 公共Radio组件
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title;
   if (store.state.loginState.token === '' && to.meta.requiresAuth) {
-    MessageBox.confirm('请登录!').then(action => {next('/Login');}).catch(error => {next('/')});
+    MessageBox.confirm('请登录!').then(action => {router.replace('/Login')}).catch(error => {router.replace('/')});
   }else {
     next()
   }

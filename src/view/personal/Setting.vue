@@ -5,12 +5,12 @@
 
     <div class="setting font24">
       <!--头像-->
-      <router-link :to="'/Portrait/' + $store.state.loginState.token">
+      <router-link :to="'/Portrait/' + $store.state.loginState.token" replace>
         <span>头像 <img v-if="portraito !== ''" :src="portraito"></span>
       </router-link>
 
       <!--账号-->
-      <router-link :to="'/Account/' + $store.state.loginState.token">
+      <router-link :to="'/Account/' + $store.state.loginState.token" replace>
         <span>账号 <label>{{list.phone}}</label></span>
       </router-link>
 
@@ -27,7 +27,7 @@
       </a>
 
       <!--邮箱-->
-      <router-link :to="'/Email/' + $store.state.loginState.token">
+      <router-link :to="'/Email/' + $store.state.loginState.token" replace>
         <span>邮箱 <label>{{list.email}}</label></span>
       </router-link>
 
@@ -43,7 +43,7 @@
     </div>
 
     <div class="setting m-t-lg font24">
-      <router-link :to="'/ChangePass/' + $store.state.loginState.token">
+      <router-link :to="'/ChangePass/' + $store.state.loginState.token" replace>
         <span>修改密码</span>
       </router-link>
 
@@ -61,7 +61,7 @@
     <!--修改性别-->
     <mt-popup v-model="popupVisible" position="bottom" class="full">
       <p class="sex-title">性别</p>
-      <mt-radio align="right" v-model="sexRadio" :options="[{label: '男',value: '0'},{label: '女',value: '1'}]" @change=""></mt-radio>
+      <mt-radio align="right" v-model="sexRadio" :options="[{label: '男',value: '0'},{label: '女',value: '1'}]"></mt-radio>
     </mt-popup>
   </div>
 </template>
@@ -148,7 +148,11 @@
       //获取基本信息
       this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
-        this.portraito = this.$imageBasicUrl + this.list.head || portraito;
+        if (this.list.head !== null && this.list.head !== '') {
+          this.portraito = this.$imageBasicUrl + this.list.head;
+        }else {
+          this.portraito = portraito
+        }
       })
     }
   }

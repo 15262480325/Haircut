@@ -49,7 +49,13 @@ export default new Router({
       path: '/Personal/:id',
       name: 'Personal',
       meta: {title: '个人中心', requiresAuth: true},
-      component: resolve => require(['../view/personal/index'], resolve)
+      component: resolve => require(['../view/personal/Index'], resolve)
+    },
+    {
+      path: '/Notice/:id',
+      name: 'Notice',
+      meta: {title: '消息中心', requiresAuth: true},
+      component: resolve => require(['../view/personal/Notice'], resolve)
     },
     {
       path: '/Setting/:id',

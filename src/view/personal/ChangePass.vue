@@ -48,7 +48,7 @@
             this.$Indicator.close();
             this.$Toast({message: response.data.msg, duration: 1800});
             if (parseInt(response.data.status) === 1) { //status == 1 成功
-              this.$store.loginState.commit('cancelLoginState');
+              this.$store.commit('cancelLoginState');
               setTimeout(() => {this.$router.replace({ path: '/Login' })},1800)
             }
           }).catch(error => {this.$Indicator.close()})

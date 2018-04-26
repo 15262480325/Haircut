@@ -14,7 +14,7 @@ export const loginState = {
     //保存登录信息
     saveAccount (state,data) {
       state.account = data.phone;
-      state.head = data.head;
+      state.head = data.head !== null && data.head !== '' ? data.head : portraito ;
       state.token = data.user_id;
       state.nickName = data.nickname || '';
     },

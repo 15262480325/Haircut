@@ -59,6 +59,7 @@ body{max-width: 640px; margin: 0 auto; background: #f9f9f9; font-family: Microso
 .font28 { font-size: 0.28rem!important;}
 .font30 { font-size: 0.3rem!important;}
 .font32 { font-size: 0.32rem!important;}
+
 .weight{font-weight: bold;}
 .f-s-n{font-style: normal;}
 .weight-n{font-weight: normal!important;}
@@ -175,7 +176,7 @@ body{max-width: 640px; margin: 0 auto; background: #f9f9f9; font-family: Microso
 /*黑色透明被禁锢*/
 .bg{width: 100%; position: fixed; left: 0; top: 0; bottom: 0; background: #000; background: rgba(0,0,0,0.7); z-index: 8;}
 
-.container{padding: 0.8rem 0 1.1rem 0; }
+.container{padding: 0.8rem 0 1.1rem 0;}
 
 /*公共头部*/
 .header{width: 100%; height: 0.8rem; line-height: 0.8rem; color: white; text-align: center; background: #FA729A;}
@@ -184,10 +185,10 @@ body{max-width: 640px; margin: 0 auto; background: #f9f9f9; font-family: Microso
 .header a.meun{max-width: 1.5rem; position: absolute; top: 0; right: 0.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 
 /*公共底部菜单*/
-.footer{width: 100%; position: fixed; bottom: 0; left: 0; z-index: 4; background: white; box-shadow: 0 -2px 10px #828282;}
+.footer{width: 100%; position: fixed; bottom: 0; left: 0; z-index: 4; background: white; box-shadow: 0 -2px 10px #d1c9c9;}
 .footer a{width: 25%; float: left; line-height: 0.8rem; color: #7d7b7b;}
 .footer a:active{background: #F5F5F5;}
 .footer a.active{color: #FA729A;}
-.footer span{display: inline-block; width: 100%; line-height: 0.4rem; text-align: center; vertical-align: middle;}
-.footer i{display: block; width: 100%; font-size: 0.26rem;}
+.footer span{display: inline-block; width: 100%; line-height: 0.35rem; text-align: center; vertical-align: middle;}
+.footer i{display: block; width: 100%; font-size: 0.32rem;}
 

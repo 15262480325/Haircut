@@ -23,7 +23,7 @@
     <div class="tool font26">
       <a href="javascript:;"><i class="iconfont icon-shoucang"></i>收藏</a>
       <a href="javascript:;"><i  class="iconfont icon-pinglun"></i>评价</a>
-      <a href="javascript:;"><i class="iconfont icon-lingdang"></i>消息</a>
+      <router-link :to="'/Notice/' + $store.state.loginState.token"><i class="iconfont icon-lingdang"></i>消息</router-link>
     </div>
 
     <!--信息-->
@@ -64,7 +64,11 @@
       //获取基本信息
       this.$axios.post('/personal', {id: this.$store.state.loginState.token}).then(response => {
         this.list = response.data.data;
-        this.portraito = this.$imageBasicUrl + this.list.head || portraito;
+        if (this.list.head !== null && this.list.head !== '') {
+          this.portraito = this.$imageBasicUrl + this.list.head
+        }else {
+          this.portraito = portraito
+        }
       })
     }
   }
@@ -126,7 +130,7 @@
       a {
         width: 33.33%;
         float: left;
-        padding: 0.12rem 0;
+        padding: 0.2rem 0 0.15rem 0;
         line-height: 0.38rem;
         text-align: center;
 
@@ -134,6 +138,7 @@
           display: inline-block;
           width: 100%;
           font-weight: 600;
+          font-size: 0.34rem;
         }
       }
 
